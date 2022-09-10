@@ -25,6 +25,7 @@ namespace WebAPI.Controllers
             GetListProgrammingLanguageQuery getListProgrammingLanguageQuery = new GetListProgrammingLanguageQuery { PageRequest =pageRequest};
             ProgrammingLanguageListModel result = await Mediator.Send(getListProgrammingLanguageQuery);
             return Ok(result);
+
         }
     }
 }
