@@ -13,10 +13,11 @@ namespace Persistence.Context
     {
         protected IConfiguration Configuration { get; set; }
         public DbSet<ProgrammingLanguage> ProgrammingLanguages { get; set; }
+        public DbSet<Technology> Technologies { get; set; }
 
-        public BaseDbContext(DbContextOptions dbContextOptions,IConfiguration configuration):base(dbContextOptions)
+        public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration) : base(dbContextOptions)
         {
-            Configuration=configuration;
+            Configuration = configuration;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -29,12 +30,24 @@ namespace Persistence.Context
             modelBuilder.Entity<ProgrammingLanguage>(a =>
             {
                 a.ToTable("ProgrammingLanguages").HasKey(k => k.Id);
-                a.Property(p=>p.Id).HasColumnName("id");
-                a.Property(p=>p.Name).HasColumnName("name");
+                a.Property(p => p.Id).HasColumnName("id");
+                a.Property(p => p.Name).HasColumnName("name");
+                a.HasMany(p => p.Technologies);
             });
 
-            ProgrammingLanguage[] programmingLanguagesEntitySeeds = {new(1,"C#"),new(2,"Java") };
+            ProgrammingLanguage[] programmingLanguagesEntitySeeds = { new(1, "C#"), new(2, "Java") };
             modelBuilder.Entity<ProgrammingLanguage>().HasData(programmingLanguagesEntitySeeds);
+
+            modelBuilder.Entity<Technology>(a =>
+            {
+                a.ToTable("Technologies").HasKey(k=>k.Id);
+                a.Property(t => t.Id).HasColumnName("id");
+                a.Property(t => t.ProgrammingLanguageId).HasColumnName("programmingLanguageId");
+                a.Property(t => t.Name).HasColumnName("name");
+                a.HasOne(t=>t.ProgrammingLanguage);
+            });
+            Technology[] technologyEntitySeeds = {new(1,1,"ASP.Net"),new(2,1,"WPF"),new(3,2,"Spring") };
+            modelBuilder.Entity<Technology>().HasData(technologyEntitySeeds);
         }
     }
 }
