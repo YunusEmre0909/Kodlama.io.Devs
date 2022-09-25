@@ -52,6 +52,37 @@ namespace Persistence.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Domain.Entities.SocialLink", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("GithubLink")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("githubLink");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SocialLinks", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            GithubLink = "https://github.com/YunusEmre0909"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            GithubLink = "https://github.com/YunusEmre09"
+                        });
+                });
+
             modelBuilder.Entity("Domain.Entities.Technology", b =>
                 {
                     b.Property<int>("Id")

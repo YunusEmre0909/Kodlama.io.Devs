@@ -14,6 +14,7 @@ namespace Persistence.Context
         protected IConfiguration Configuration { get; set; }
         public DbSet<ProgrammingLanguage> ProgrammingLanguages { get; set; }
         public DbSet<Technology> Technologies { get; set; }
+        public DbSet<SocialLink> SocialLinks { get; set; }
 
         public BaseDbContext(DbContextOptions dbContextOptions, IConfiguration configuration) : base(dbContextOptions)
         {
@@ -48,6 +49,16 @@ namespace Persistence.Context
             });
             Technology[] technologyEntitySeeds = {new(1,1,"ASP.Net"),new(2,1,"WPF"),new(3,2,"Spring") };
             modelBuilder.Entity<Technology>().HasData(technologyEntitySeeds);
+
+            modelBuilder.Entity<SocialLink>(a=>
+            {
+                a.ToTable("SocialLinks").HasKey(k => k.Id);
+                a.Property(s => s.Id).HasColumnName("id");
+                a.Property(s=>s.GithubLink).HasColumnName("githubLink");
+            });
+
+            SocialLink[] secialLinkEntitySeeds = {new(1, "https://github.com/YunusEmre0909"),new(2, "https://github.com/YunusEmre09") };
+            modelBuilder.Entity<SocialLink>().HasData(secialLinkEntitySeeds);
         }
     }
 }

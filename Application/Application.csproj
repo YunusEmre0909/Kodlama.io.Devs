@@ -15,6 +15,9 @@
 
   <ItemGroup>
     <Folder Include="Features\ProgrammingLanguages\Constans\" />
+    <Folder Include="Features\SocialLinks\Constans\" />
+    <Folder Include="Features\SocialLinks\Models\" />
+    <Folder Include="Features\SocialLinks\Queries\" />
     <Folder Include="Features\Technologies\Constans\" />
   </ItemGroup>
 
