@@ -24,5 +24,14 @@ namespace Application.Features.SocialLinks.Rules
             IPaginate<SocialLink> result = await _socialLinkRepository.GetListAsync(x=>x.GithubLink==link);
             if (result.Items.Any()) throw new BusinessException("Github Link Already Exists.");
         }
+        public async Task SocialLinkIdShouldBeExist(int id)
+        {
+            var result = await _socialLinkRepository.GetListAsync(x=>x.Id==id);
+            if (!result.Items.Any()) throw new BusinessException("Social Link Not Found");
+        }
+        public void SocialLinkShouldExistWhenRequested(SocialLink socialLink)
+        {
+            if (socialLink == null) throw new BusinessException("Requested SocialLink Does Not Exist");
+        }
     }
 }
